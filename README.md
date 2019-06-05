@@ -9,7 +9,7 @@ The main difference from [wrk2](https://github.com/giltene/wrk2) tool is very ev
 ## Quick-Start Guide
 
 1. Copy or compile LaBench binary (there are both Windows and Linux executables). Windows version has more precise clock.
-2. Modify `labench.yaml` to meet your needs, most basic params should be self-explanatory. For the full list of supported parameters look at `full_config.yaml`.
+2. Modify `labench.yaml` to meet your needs, most basic params should be self-explanatory. For the full list of supported parameters look at [`full_config.yaml`](full_config.yaml).
 3. Run the benchmark by simply running labench (you can also specify .yaml file on command line, but labench.yaml is used by default).
 4. **BEFORE looking at the latency results** check the following things in the tool output:
     1. *TimelyTicks percentage*. If it's less than say 99.9% then you need to increase number of Clients in yaml config. It's very realistic to keep it at 100%.
