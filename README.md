@@ -17,7 +17,7 @@ The main difference from [wrk2](https://github.com/giltene/wrk2) tool is very ev
     3. Number of errors returned by the server (non-200 responses). Some small percentage is OK, but they are not accounted for in latency results.
     4. Throughput reported in last line. If should be close to the value RequestRatePerSec in your .yaml config.
 5. **If ANY of the above is not satisfied** then the run was not valid and there is no point in looking at the latency results produced, so fix and re-run.
-6. The measurement results (latency percentiles) are placed in `out\res.hgrm` file. You can open it in Excel or go to [http://hdrhistogram.github.io/HdrHistogram/plotFiles.html]()) to plot it.
+6. The measurement results (latency percentiles) are placed in `out\res.hgrm` file. You can open it in Excel or go to [http://hdrhistogram.github.io/HdrHistogram/plotFiles.html]() to plot it.
 7. Note that plotted results have logarithmic X axis (i.e. the distance between 99% and 99.9% is the same as the distance between 99.9% and 99.99%).
 
 # Contributing
