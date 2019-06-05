@@ -1,0 +1,70 @@
+# Target RPS (requests per second)
+RequestRatePerSec: 200
+
+# Number of clients used to send requests. It should be sufficiently big to make sure requests are sent even when server is slow
+# Defaults to: RequestRatePerSec * RequestTimeout + 20%, which guarantees there is always a client available to send a request
+Clients: 1000
+
+# How long to run the test
+Duration: 10s
+
+# BaseLatency is simply a number (in ms) that is subtracted from every latency measurement .
+# Helps making output graph show just variability of overhead
+BaseLatency: 10
+
+# Timeout of individual HTTP request, defaults to 10s
+RequestTimeout: 5s
+
+# By default a new TCP connection is created for every request,
+# but if set to false, then connections will be long-lived and reused
+ReuseConnections: true
+
+# When RPS is high and ReuseConnections is true the machine running benchmark can run out of TCP ports for outbound connections
+# Setting DontLinger to true will make ports from closed sockets available right away
+DontLinger: true
+
+# Produce JSON with results of the run, defaults to false
+OutputJSON: true
+
+# If time resolution logic to pick sleeping or tight ticker does not work, then TightTicker can be forced by setting this to true.
+# TightTicker is very precise but it takes an entire CPU Core.
+# SleepingTicker uses OS thread sleep API, but if OS sleeping precision is not sufficient then there will be a lot of missing TimelyTicks.
+TightTicker: true
+
+Request:
+  # HTTPMethod defaults to GET if Body (below) is not present and to POST otherwise, but can be specified explicitly
+  HTTPMethod: POST
+
+  # ExpectedHTTPStatusCode defaults to 200
+  ExpectedHTTPStatusCode: 202
+
+  # The URL and URLs settings are mutually exclusive
+  # If URL is specified, then it's simply used
+  # If URLs is specified then the list of URLs is used in round-robin fashion evenly distributing requests to them
+  URL: https://my.server/services/e0cb/execute?api-version=2.0&details=true
+  URLs:
+  - https://my.server1/services/e0cb/execute?api-version=2.0&details=true
+  - https://my.server2/services/e0cb/execute?api-version=2.0&details=true
+
+  # Hosts can be used with URL param above (and not with URLs). If Hosts is specified, then the host part in URL is ignored (can be anything) and instead Hosts are substituted
+  # in round-robin fashion evenly distributing requests to them
+  Hosts:
+  - my.server1
+  - my.server2
+
+  # Any HTTP headers, $APIKEY syntax expands environment variable
+  Headers:
+    Authorization: Bearer $APIKEY
+    Content-Type: application/json
+
+  # POST request body
+  # For binary body see https://yaml.org/type/binary.html
+  Body: |-
+    {
+      "Inputs": {
+        "input1": {
+          "ColumnNames": ["Measured"],
+          "Values": [["200"]]
+        }
+      }
+    }

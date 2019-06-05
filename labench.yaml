@@ -1,0 +1,4 @@
+RequestRatePerSec: 2
+Duration: 3s
+Request:
+  URL: http://example.com
