@@ -8,7 +8,7 @@ Clients: 1000
 # How long to run the test
 Duration: 10s
 
-# BaseLatency is simply a number (in ms) that is subtracted from every latency measurement .
+# BaseLatency is simply a number (in ms) that is subtracted from every latency measurement.
 # Helps making output graph show just variability of overhead
 BaseLatency: 10
 
@@ -19,7 +19,7 @@ RequestTimeout: 5s
 # but if set to false, then connections will be long-lived and reused
 ReuseConnections: true
 
-# When RPS is high and ReuseConnections is true the machine running benchmark can run out of TCP ports for outbound connections
+# When RPS is high and ReuseConnections is false (default) the machine running benchmark can run out of TCP ports for outbound connections.
 # Setting DontLinger to true will make ports from closed sockets available right away
 DontLinger: true
 
