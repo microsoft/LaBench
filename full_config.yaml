@@ -46,7 +46,8 @@ Request:
   - https://my.server1/services/e0cb/execute?api-version=2.0&details=true
   - https://my.server2/services/e0cb/execute?api-version=2.0&details=true
 
-  # Hosts can be used with URL param above (and not with URLs). If Hosts is specified, then the host part in URL is ignored (can be anything) and instead Hosts are substituted
+  # Hosts can be used with URL param above (and not with URLs).
+  # If Hosts is specified, then the host part in URL is ignored (can be anything) and instead Hosts are substituted
   # in round-robin fashion evenly distributing requests to them
   Hosts:
   - my.server1
