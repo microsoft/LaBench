@@ -31,6 +31,9 @@ OutputJSON: true
 # SleepingTicker uses OS thread sleep API, but if OS sleeping precision is not sufficient then there will be a lot of missing TimelyTicks.
 TightTicker: true
 
+# Protocol defaults to HTTP/1.1, HTTP/2 is also supported
+Protocol: HTTP/2
+
 Request:
   # HTTPMethod defaults to GET if Body (below) is not present and to POST otherwise, but can be specified explicitly
   HTTPMethod: POST
