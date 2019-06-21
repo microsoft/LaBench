@@ -35,7 +35,7 @@ TightTicker: true
 Protocol: HTTP/2
 
 # Directory to write the output report to. Defaults to 'out'
-Outdir: "out"
+OutDir: "out"
 
 Request:
   # HTTPMethod defaults to GET if Body (below) is not present and to POST otherwise, but can be specified explicitly
