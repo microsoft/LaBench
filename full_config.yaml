@@ -34,6 +34,9 @@ TightTicker: true
 # Protocol defaults to HTTP/1.1, HTTP/2 is also supported
 Protocol: HTTP/2
 
+# Directory to write the output report to. Defaults to 'out'
+Outdir: "out"
+
 Request:
   # HTTPMethod defaults to GET if Body (below) is not present and to POST otherwise, but can be specified explicitly
   HTTPMethod: POST
