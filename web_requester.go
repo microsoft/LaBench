@@ -162,17 +162,17 @@ func (w *webRequester) Request() error {
 
 	var hosts []string
 
-	// headers are case-insensitive
-	for k, v := range w.headers {
-		if strings.ToLower(k) == "host" {
-			hosts = append(hosts, v...)
+	//case insensitive
+	if host, ok := w.headers["host"]; ok {
+		if len(hosts) != 1 {
+			return errors.New("multiple host headers are not allowed")
 		}
-	}
-	if len(hosts) > 1 {
-		return errors.New("multiple host headers are not allowed")
-	}
-	if len(hosts) > 0 {
-		req.Host = hosts[0]
+		req.Host = host[0]
+	} else if host, ok = w.headers["Host"]; ok {
+		if len(hosts) != 1 {
+			return errors.New("multiple host headers are not allowed")
+		}
+		req.Host = host[0]
 	}
 
 	resp, err := httpClient.Do(req)
