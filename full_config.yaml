@@ -60,6 +60,7 @@ Request:
   Headers:
     Authorization: Bearer $APIKEY
     Content-Type: application/json
+    Host: example.com
 
   # POST request body
   # For binary body see https://yaml.org/type/binary.html

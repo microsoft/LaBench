@@ -153,6 +153,28 @@ func (w *webRequester) Request() error {
 	}
 
 	req.Header = w.headers
+
+	// from https://golang.org/src/net/http/request.go?#L124
+	// For client requests, the URL's Host specifies the server to
+	// connect to, while the Request's Host field optionally
+	// specifies the Host header value to send in the HTTP
+	// request.
+
+	var hosts []string
+
+	//case insensitive
+	if host, ok := w.headers["host"]; ok {
+		if len(hosts) != 1 {
+			return errors.New("multiple host headers are not allowed")
+		}
+		req.Host = host[0]
+	} else if host, ok = w.headers["Host"]; ok {
+		if len(hosts) != 1 {
+			return errors.New("multiple host headers are not allowed")
+		}
+		req.Host = host[0]
+	}
+
 	resp, err := httpClient.Do(req)
 
 	/* to look at the response body
