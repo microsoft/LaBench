@@ -32,6 +32,7 @@ type config struct {
 	Params   benchParams         `yaml:",inline"`
 	Protocol string              `yaml:"Protocol"`
 	Request  WebRequesterFactory `yaml:"Request"`
+	Output   string              `yaml:"OutFile"`
 }
 
 func maybePanic(err error) {
@@ -108,9 +109,14 @@ func main() {
 
 	fmt.Println(summary)
 
-	err = os.MkdirAll("out", os.ModeDir|os.ModePerm)
+	outfile := conf.Output
+	if outfile == "" {
+		outfile = "out/res.hgrm"
+	}
+
+	err = os.MkdirAll(path.Dir(outfile), os.ModeDir|os.ModePerm)
 	maybePanic(err)
 
-	err = summary.GenerateLatencyDistribution(bench.Logarithmic, path.Join("out", "res.hgrm"))
+	err = summary.GenerateLatencyDistribution(bench.Logarithmic, outfile)
 	maybePanic(err)
 }
