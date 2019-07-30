@@ -159,11 +159,20 @@ func (w *webRequester) Request() error {
 	// connect to, while the Request's Host field optionally
 	// specifies the Host header value to send in the HTTP
 	// request.
-	if host, ok := w.headers["Host"]; ok {
-		if len(host) != 1 {
-			return errors.New("Host Header is not a single value.")
+
+	var hosts []string
+
+	// headers are case-insensitive
+	for k, v := range w.headers {
+		if strings.ToLower(k) == "host" {
+			hosts = append(hosts, v...)
 		}
-		req.Host = host[0]
+	}
+	if len(hosts) > 1 {
+		return errors.New("multiple host headers are not allowed")
+	}
+	if len(hosts) > 0 {
+		req.Host = hosts[0]
 	}
 
 	resp, err := httpClient.Do(req)
