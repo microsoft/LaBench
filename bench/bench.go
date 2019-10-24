@@ -25,7 +25,7 @@ const (
 type RequesterFactory interface {
 	// GetRequester returns a new Requester, called for each Benchmark
 	// connection.
-	GetRequester(number uint64) Requester
+	GetRequester(number uint64) (Requester, error)
 }
 
 // Requester synchronously issues requests for a particular system under test.
@@ -107,7 +107,8 @@ func (b *Benchmark) Run(outputJson bool, forceTightTicker bool) (*Summary, error
 	for i := uint64(0); i < b.connections; i++ {
 		i := i
 		go func() {
-			b.worker(b.factory.GetRequester(i), ticker, results, errors)
+			requester, _ := b.factory.GetRequester(i)
+			b.worker(requester, ticker, results, errors)
 			// log.Printf("Worker %d done\n", i)
 			wg.Done()
 		}()
