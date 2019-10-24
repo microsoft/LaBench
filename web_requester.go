@@ -160,16 +160,14 @@ func (w *webRequester) Request() error {
 	// specifies the Host header value to send in the HTTP
 	// request.
 
-	var hosts []string
-
 	//case insensitive
 	if host, ok := w.headers["host"]; ok {
-		if len(hosts) != 1 {
+		if len(host) != 1 {
 			return errors.New("multiple host headers are not allowed")
 		}
 		req.Host = host[0]
 	} else if host, ok = w.headers["Host"]; ok {
-		if len(hosts) != 1 {
+		if len(host) != 1 {
 			return errors.New("multiple host headers are not allowed")
 		}
 		req.Host = host[0]
