@@ -38,7 +38,7 @@ Protocol: HTTP/2
 OutFile: "out/res.hgrm"
 
 Request:
-  # HTTPMethod defaults to GET if Body (below) is not present and to POST otherwise, but can be specified explicitly
+  # HTTPMethod defaults to GET if Body or BodyPath (below) is not present and to POST otherwise, but can be specified explicitly
   HTTPMethod: POST
 
   # ExpectedHTTPStatusCode defaults to 200
@@ -76,3 +76,6 @@ Request:
         }
       }
     }
+
+  # POST request body. This will override the Body above.
+  BodyPath: path/to/file
