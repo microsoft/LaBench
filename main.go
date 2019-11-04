@@ -69,7 +69,7 @@ func main() {
 	}
 
 	if conf.Request.HTTPMethod == "" {
-		if conf.Request.Body == "" && conf.Request.BodyPath == "" {
+		if conf.Request.Body == "" && conf.Request.BodyFile == "" {
 			conf.Request.HTTPMethod = http.MethodGet
 		} else {
 			conf.Request.HTTPMethod = http.MethodPost

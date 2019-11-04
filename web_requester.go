@@ -92,7 +92,7 @@ type WebRequesterFactory struct {
 	Hosts                  []string          `yaml:"Hosts"`
 	Headers                map[string]string `yaml:"Headers"`
 	Body                   string            `yaml:"Body"`
-	BodyPath               string            `yaml:"BodyPath"`
+	BodyFile               string            `yaml:"BodyFile"`
 	ExpectedHTTPStatusCode int               `yaml:"ExpectedHTTPStatusCode"`
 	HTTPMethod             string            `yaml:"HTTPMethod"`
 
@@ -100,7 +100,7 @@ type WebRequesterFactory struct {
 }
 
 // GetRequester returns a new Requester, called for each Benchmark connection.
-func (w *WebRequesterFactory) GetRequester(uint64) (bench.Requester, error) {
+func (w *WebRequesterFactory) GetRequester(uint64) bench.Requester {
 	// if len(w.expandedHeaders) != len(w.Headers) {
 	if w.expandedHeaders == nil {
 		expandedHeaders := make(map[string][]string)
@@ -110,16 +110,16 @@ func (w *WebRequesterFactory) GetRequester(uint64) (bench.Requester, error) {
 		w.expandedHeaders = expandedHeaders
 	}
 
-	// if BodyPath is specified Body is ignored
-	if w.BodyPath != "" {
-		content, err := ioutil.ReadFile(w.BodyPath)
+	// if BodyFile is specified Body is ignored
+	if w.BodyFile != "" {
+		content, err := ioutil.ReadFile(w.BodyFile)
 		if err != nil {
-			return nil, err
+			maybePanic(err)
 		}
 		w.Body = string(content)
 	}
 
-	return &webRequester{w.URL, w.URLs, w.Hosts, w.expandedHeaders, w.Body, w.ExpectedHTTPStatusCode, w.HTTPMethod}, nil
+	return &webRequester{w.URL, w.URLs, w.Hosts, w.expandedHeaders, w.Body, w.ExpectedHTTPStatusCode, w.HTTPMethod}
 }
 
 // webRequester implements Requester by making a GET request to the provided
