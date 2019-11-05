@@ -92,6 +92,7 @@ type WebRequesterFactory struct {
 	Hosts                  []string          `yaml:"Hosts"`
 	Headers                map[string]string `yaml:"Headers"`
 	Body                   string            `yaml:"Body"`
+	BodyFile               string            `yaml:"BodyFile"`
 	ExpectedHTTPStatusCode int               `yaml:"ExpectedHTTPStatusCode"`
 	HTTPMethod             string            `yaml:"HTTPMethod"`
 
@@ -107,6 +108,13 @@ func (w *WebRequesterFactory) GetRequester(uint64) bench.Requester {
 			expandedHeaders[key] = []string{os.ExpandEnv(val)}
 		}
 		w.expandedHeaders = expandedHeaders
+	}
+
+	// if BodyFile is specified Body is ignored
+	if w.BodyFile != "" {
+		content, err := ioutil.ReadFile(w.BodyFile)
+		maybePanic(err)
+		w.Body = string(content)
 	}
 
 	return &webRequester{w.URL, w.URLs, w.Hosts, w.expandedHeaders, w.Body, w.ExpectedHTTPStatusCode, w.HTTPMethod}
