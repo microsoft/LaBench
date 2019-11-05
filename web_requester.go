@@ -113,9 +113,7 @@ func (w *WebRequesterFactory) GetRequester(uint64) bench.Requester {
 	// if BodyFile is specified Body is ignored
 	if w.BodyFile != "" {
 		content, err := ioutil.ReadFile(w.BodyFile)
-		if err != nil {
-			maybePanic(err)
-		}
+		maybePanic(err)
 		w.Body = string(content)
 	}
 
