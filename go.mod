@@ -1,7 +1,7 @@
 module labench
 
 require (
-	golang.org/x/net v0.0.0-20190522155817-f3200d17e092
+	golang.org/x/net v0.11.0
 	gopkg.in/yaml.v2 v2.4.0
 	labench/bench v0.0.0
 )
